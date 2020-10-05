@@ -34,15 +34,42 @@ export class AppComponent implements OnInit {
         margin: 20,
         x: 30
       },
+      credits: {enabled: false},
+      plotOptions: {
+        allowPointSelect: false,
+        series: {
+          showCheckbox: true,
+          events: {
+            checkboxClick: function(event) {
+              console.log(event.checked);
+              if (event.checked) {
+                this.update({
+                  // dataLabels: {
+                  //   enabled: true
+                  // }
+                  visible: true
+                });
+
+                return false;
+              }
+              else {
+                this.update({
+                  // dataLabels: {
+                  //   enabled: false
+                  // },
+                  visible: false
+                });
+
+                return true;
+              }
+
+            },
+
+
+          },
+        }
+      },
       xAxis: [{
-        // categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
-        //   'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-        // crosshair: true,
-        title: {
-          style: {
-            color: 'rgb(128, 128, 128)'
-          }
-        },
         units: [
           [
             'minute',
@@ -62,7 +89,13 @@ export class AppComponent implements OnInit {
           formatter: function() {
             // TODO define H:M or H AM/PM
             return this.value;
+          },
+          style: {
+            // color: Highcharts.getOptions().colors[0]
+            color: 'rgb(0,0,0)'
           }
+          // rgb(48,96,158)
+          //
         },
         reversed: false,
         gridLineWidth: 1,
@@ -74,15 +107,15 @@ export class AppComponent implements OnInit {
       }],
       yAxis: [{ // Primary yAxis
         labels: {
-          // format: '{value}°C',
           style: {
-            // color: Highcharts.getOptions().colors[1]
+            color: 'rgb(0,0,0)'
           }
         },
         title: {
           text: 'Instance Count',
           style: {
-            fontFamily: 'Arial'
+            fontFamily: 'Arial',
+            color: 'rgb(128, 128, 128)'
           },
           align: 'high',
           rotation: 0,
@@ -114,10 +147,10 @@ export class AppComponent implements OnInit {
         },
         labels: {
           // format: '{value} mm',
-          // style: {
+          style: {
             // color: Highcharts.getOptions().colors[0]
-            // color: 'rgb(128, 128, 128)'
-          // }
+            color: 'rgb(0,0,0)'
+          }
         },
         opposite: true
       }],
@@ -138,6 +171,15 @@ export class AppComponent implements OnInit {
         name: 'Rainfall',
         type: 'column',
         yAxis: 1,
+        showCheckbox: true,
+        selected: true,
+        marker: {
+          enabled: false
+        },
+        events: {
+          legendItemClick: () => false  // disable legend click
+        },
+        color: 'rgb(126,203,235)',
         data: [
           {
             x: Date.UTC(2012, 5, 22, 8, 15),
@@ -159,6 +201,12 @@ export class AppComponent implements OnInit {
       }, {
         name: 'Temperature',
         type: 'line',
+        showCheckbox: true,
+        selected: true,
+        events: {
+          legendItemClick: () => false  // disable legend click
+        },
+        color: 'rgb(0,83,157)',
         data: [
           {
             x: Date.UTC(2012, 5, 22, 8, 15),
