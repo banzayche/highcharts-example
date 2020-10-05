@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import * as HighCharts from 'highcharts';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-root',
@@ -89,8 +90,14 @@ export class AppComponent implements OnInit {
         // },
         labels: {
           formatter: function() {
-            // TODO define H:M or H AM/PM
-            return this.value;
+            const myMoment: moment.Moment = moment(this.value);
+            let value;
+            if (myMoment.utc().format('hh:mm').includes(':00')) {
+              value = myMoment.utc().format('h a');
+            } else {
+              value = myMoment.utc().format('hh:mm');
+            }
+            return value.toUpperCase();
           },
           style: {
             // color: Highcharts.getOptions().colors[0]
