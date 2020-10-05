@@ -31,13 +31,34 @@ export class AppComponent implements OnInit {
         x: 30
       },
       xAxis: [{
-        categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
-          'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-        crosshair: true
+        // categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+        //   'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+        // crosshair: true,
+        units: [
+          [
+          'minute',
+          [15, 30]
+        ],
+          [
+          'hour',
+          [1]
+        ]],
+        uniqueNames: true,
+        type: 'datetime',
+        // dateTimeLabelFormats: {
+        //   minute: '%H:%M',
+        //   hour: '%Hff',
+        // },
+        labels: {
+          formatter: function() {
+            // TODO define H:M or H AM/PM
+            return this.value;
+          }
+        }
       }],
       yAxis: [{ // Primary yAxis
         labels: {
-          format: '{value}°C',
+          // format: '{value}°C',
           // style: {
           //   color: Highcharts.getOptions().colors[1]
           // }
@@ -72,7 +93,7 @@ export class AppComponent implements OnInit {
           // }
         },
         labels: {
-          format: '{value} mm',
+          // format: '{value} mm',
           // style: {
           //   color: Highcharts.getOptions().colors[0]
           // }
@@ -96,18 +117,44 @@ export class AppComponent implements OnInit {
         name: 'Rainfall',
         type: 'column',
         yAxis: 1,
-        data: [49.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4],
-        tooltip: {
-          valueSuffix: ' mm'
-        }
+        data: [
+          {
+            x: Date.UTC(2012, 5, 22, 8, 15),
+            y: 11
+          },
+          {
+            x: Date.UTC(2012, 5, 22, 8, 40),
+            y: 12
+          },
+          {
+            x: Date.UTC(2012, 5, 22, 9, 35),
+            y: 11
+          }
+        ],
+        // tooltip: {
+        //   valueSuffix: ' mm'
+        // }
 
       }, {
         name: 'Temperature',
         type: 'line',
-        data: [7.0, 6.9, 9.5, 14.5, 18.2, 21.5, 25.2, 26.5, 23.3, 18.3, 13.9, 9.6],
-        tooltip: {
-          valueSuffix: '°C'
-        }
+        data: [
+          {
+            x: Date.UTC(2012, 5, 22, 8, 15),
+            y: 11
+          },
+          {
+            x: Date.UTC(2012, 5, 22, 8, 20),
+            y: 12
+          },
+          {
+            x: Date.UTC(2012, 5, 22, 8, 25),
+            y: 11
+          }
+        ],
+        // tooltip: {
+        //   valueSuffix: '°C'
+        // }
       }]
     } as any);
   }
