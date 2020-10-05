@@ -38,7 +38,7 @@ export class AppComponent implements OnInit {
       plotOptions: {
         allowPointSelect: false,
         series: {
-          showCheckbox: true,
+          // showCheckbox: true,
           events: {
             checkboxClick: function(event) {
               console.log(event.checked);
@@ -51,8 +51,7 @@ export class AppComponent implements OnInit {
                 });
 
                 return false;
-              }
-              else {
+              } else {
                 this.update({
                   // dataLabels: {
                   //   enabled: false
@@ -67,6 +66,9 @@ export class AppComponent implements OnInit {
 
 
           },
+          marker: {
+            enabled: false
+          }
         }
       },
       xAxis: [{
@@ -164,6 +166,14 @@ export class AppComponent implements OnInit {
         verticalAlign: 'top',
         y: -10,
         floating: true,
+        useHTML: true,
+        symbolPadding: 0,
+        symbolWidth: 0,
+        symbolHeight: 0,
+        squareSymbol: false,
+        labelFormatter: function() {
+          return `<input type="checkbox" data-target-checkbox data-series="${this.name}" checked> ${this.name}`;
+        }
         // backgroundColor:
         //   'rgba(255,255,255,0.25)'
       },
@@ -171,11 +181,9 @@ export class AppComponent implements OnInit {
         name: 'Rainfall',
         type: 'column',
         yAxis: 1,
-        showCheckbox: true,
-        selected: true,
-        marker: {
-          enabled: false
-        },
+        // showCheckbox: true,
+        // selected: true,
+
         events: {
           legendItemClick: () => false  // disable legend click
         },
@@ -201,8 +209,8 @@ export class AppComponent implements OnInit {
       }, {
         name: 'Temperature',
         type: 'line',
-        showCheckbox: true,
-        selected: true,
+        // showCheckbox: true,
+        // selected: true,
         events: {
           legendItemClick: () => false  // disable legend click
         },
