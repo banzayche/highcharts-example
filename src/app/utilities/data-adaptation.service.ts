@@ -7,7 +7,7 @@ import {has, isNull} from 'lodash';
   providedIn: 'root'
 })
 export class DataAdaptationService {
-  getPreparedData(data: HighchartsDataModel[][]): GraphDataItem[][] {
+  public getPreparedData(data: HighchartsDataModel[][]): GraphDataItem[][] {
     return data.map(itemArray => itemArray.map(dataItem => {
       if (has(dataItem, PossibleYAxis.CPU_UTILIZATION)) {
         return this.prepareMilicores(dataItem);
@@ -20,17 +20,17 @@ export class DataAdaptationService {
     }));
   }
 
-  prepareMilicores(dataItem: HighchartsDataModel): GraphDataItem {
+  private prepareMilicores(dataItem: HighchartsDataModel): GraphDataItem {
     return {
-      x: isNull(dataItem.time) ? '0' : moment(dataItem.time).utc().valueOf(),
-      y: isNull(dataItem[PossibleYAxis.CPU_UTILIZATION]) ? 0 : dataItem[PossibleYAxis.CPU_UTILIZATION]
+      x: isNull(dataItem.time) ? null : moment(dataItem.time).utc().valueOf(),
+      y: dataItem[PossibleYAxis.CPU_UTILIZATION]
     };
   }
 
-  prepareRainfall(dataItem: HighchartsDataModel): GraphDataItem {
+  private prepareRainfall(dataItem: HighchartsDataModel): GraphDataItem {
     return {
-      x: isNull(dataItem.time) ? '0' : moment(dataItem.time).utc().valueOf(),
-      y: isNull(dataItem[PossibleYAxis.INSTANCE_COUNT]) ? 0 : dataItem[PossibleYAxis.INSTANCE_COUNT]
+      x: isNull(dataItem.time) ? null : moment(dataItem.time).utc().valueOf(),
+      y: dataItem[PossibleYAxis.INSTANCE_COUNT]
     };
   }
 }

@@ -13,6 +13,7 @@ import {GraphDataItem} from './utilities/models';
 })
 export class AppComponent implements OnInit {
   title = 'Ola Amigo';
+  chart;
 
   constructor(private service: ApiServiceService, private dataAdaptation: DataAdaptationService) {
   }
@@ -27,7 +28,11 @@ export class AppComponent implements OnInit {
   }
 
   barChartPopulation(data: GraphDataItem[][]): void {
-    HighCharts.chart('demo-chart', {
+    function doThis(e) {
+      console.log(e);
+    }
+
+    this.chart = HighCharts.chart('demo-chart', {
       chart: {
         zoomType: 'xy',
         plotBackgroundColor: '#fff',
@@ -52,6 +57,12 @@ export class AppComponent implements OnInit {
         series: {
           marker: {
             enabled: false
+          },
+          events: {
+            legendItemClick(e) {
+              console.log(e, e.target);
+              return false;
+            }  // disable legend click
           }
         },
         column: {
@@ -73,7 +84,7 @@ export class AppComponent implements OnInit {
         uniqueNames: true,
         type: 'datetime',
         labels: {
-          formatter: function() {
+          formatter() {
             const myMoment: moment.Moment = moment(this.value);
             let value;
             if (myMoment.utc().format('hh:mm').includes(':00')) {
@@ -94,7 +105,10 @@ export class AppComponent implements OnInit {
         minorTickLength: 0,
         tickLength: 0,
         lineColor: 'rgb(214,214,214)',
-        lineWidth: 1
+        lineWidth: 1,
+        // TODO not sure about this
+        // min: data[0][0].x > data[1][0].x ? data[1][0].x : data[0][0].x,
+        // max: data[0][data[0].length - 1].x > data[1][data[1].length - 1].x ? data[0][data[0].length - 1].x : data[1][data[1].length - 1].x
       }],
       yAxis: [{ // Primary yAxis
         labels: {
@@ -147,30 +161,45 @@ export class AppComponent implements OnInit {
         symbolWidth: 0,
         symbolHeight: 0,
         squareSymbol: false,
-        labelFormatter: function() {
-          return `<input type="checkbox" data-target-checkbox data-series="${this.name}" checked> ${this.name}`;
+        labelFormatter() {
+          return `<input type="checkbox" (change)="doThis($event)" data-target-checkbox data-series="${this.name}" checked> ${this.name}`;
         }
       },
       series: [{
         name: 'Rainfall',
         type: 'column',
         yAxis: 1,
-        events: {
-          legendItemClick: () => false  // disable legend click
-        },
+        // events: {
+        //   legendItemClick: () => false  // disable legend click
+        // },
         color: 'rgb(126,203,235)',
         data: data[1]
       },
         {
-        name: 'Temperature',
-        type: 'spline',
-        events: {
-          legendItemClick: () => false  // disable legend click
-        },
-        color: 'rgb(0,83,157)',
-        data: data[0]
-      }
+          name: 'Temperature',
+          type: 'spline',
+          // events: {
+          //   legendItemClick: () => false  // disable legend click
+          // },
+          color: 'rgb(0,83,157)',
+          data: data[0]
+        }
       ]
     } as any);
+  }
+
+  refresh() {
+    this.service.getChartsData(true).pipe(
+      map(data => this.dataAdaptation.getPreparedData(data))
+    ).subscribe(data => {
+
+      this.chart.series.forEach((seriesItem, index) => {
+        seriesItem.setData(data[index], true);
+      });
+
+      // this.chart.redraw();
+
+      // this.chart.series[0].setData([{x:1,y:1}], true, true);
+    });
   }
 }
