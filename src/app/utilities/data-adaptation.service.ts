@@ -22,14 +22,14 @@ export class DataAdaptationService {
 
   prepareMilicores(dataItem: HighchartsDataModel): GraphDataItem {
     return {
-      x: isNull(dataItem.time) ? '0' : moment(dataItem.time).valueOf(),
+      x: isNull(dataItem.time) ? '0' : moment(dataItem.time).utc().valueOf(),
       y: isNull(dataItem[PossibleYAxis.CPU_UTILIZATION]) ? 0 : dataItem[PossibleYAxis.CPU_UTILIZATION]
     };
   }
 
   prepareRainfall(dataItem: HighchartsDataModel): GraphDataItem {
     return {
-      x: isNull(dataItem.time) ? '0' : moment(dataItem.time).valueOf(),
+      x: isNull(dataItem.time) ? '0' : moment(dataItem.time).utc().valueOf(),
       y: isNull(dataItem[PossibleYAxis.INSTANCE_COUNT]) ? 0 : dataItem[PossibleYAxis.INSTANCE_COUNT]
     };
   }

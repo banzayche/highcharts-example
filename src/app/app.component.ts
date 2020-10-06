@@ -27,12 +27,12 @@ export class AppComponent implements OnInit {
   }
 
   barChartPopulation(data: GraphDataItem[][]): void {
-    HighCharts.chart('columnChart', {
+    HighCharts.chart('demo-chart', {
       chart: {
         zoomType: 'xy',
         plotBackgroundColor: '#fff',
         backgroundColor: 'transparent',
-        showAxes: true
+        showAxes: true,
       },
       title: {
         text: 'CHART TITLE',
@@ -44,13 +44,20 @@ export class AppComponent implements OnInit {
         margin: 20,
         x: 30
       },
+      tooltip: {
+        shared: true
+      },
       credits: {enabled: false},
       plotOptions: {
-        allowPointSelect: false,
         series: {
           marker: {
             enabled: false
           }
+        },
+        column: {
+          maxPointWidth: 550,
+          groupPadding: 0,
+          pointPadding: 0
         }
       },
       xAxis: [{
@@ -104,7 +111,7 @@ export class AppComponent implements OnInit {
           align: 'high',
           rotation: 0,
           y: -5,
-          x: 20,
+          x: 30,
           offset: -50,
         },
         lineColor: 'rgb(214,214,214)',
@@ -120,7 +127,7 @@ export class AppComponent implements OnInit {
           align: 'high',
           rotation: 0,
           y: -5,
-          x: 5,
+          x: 0,
           offset: -50
         },
         labels: {
@@ -130,11 +137,8 @@ export class AppComponent implements OnInit {
         },
         opposite: true
       }],
-      tooltip: {
-        shared: true
-      },
       legend: {
-        x: 200,
+        x: 450,
         verticalAlign: 'top',
         y: -10,
         floating: true,
@@ -156,7 +160,8 @@ export class AppComponent implements OnInit {
         },
         color: 'rgb(126,203,235)',
         data: data[1]
-      }, {
+      },
+        {
         name: 'Temperature',
         type: 'spline',
         events: {
@@ -164,7 +169,8 @@ export class AppComponent implements OnInit {
         },
         color: 'rgb(0,83,157)',
         data: data[0]
-      }]
+      }
+      ]
     } as any);
   }
 }
