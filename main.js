@@ -715,7 +715,6 @@ __webpack_require__.r(__webpack_exports__);
 var ApiServiceService = /** @class */ (function () {
     function ApiServiceService() {
     }
-    // TODO fix types
     ApiServiceService.prototype.getChartsData = function (isRandom) {
         if (isRandom === void 0) { isRandom = false; }
         if (isRandom) {
@@ -724,37 +723,39 @@ var ApiServiceService = /** @class */ (function () {
         return Object(rxjs__WEBPACK_IMPORTED_MODULE_2__["of"])([_MockedData__WEBPACK_IMPORTED_MODULE_3__["mockedDataServiceInstanceCount"], _MockedData__WEBPACK_IMPORTED_MODULE_3__["mockedDataCPUUsageMillicores"]]);
     };
     ApiServiceService.prototype.generateData = function () {
-        var count = 60;
+        var count = 120;
         var initialM = 0;
-        var data = [[], []];
-        for (var n = 0; n < count; n++) {
-            data[0][n] = {
-                time: "2020-09-01T02:" + ((initialM + n).toString().length === 1 ? '0' + (initialM + n) : initialM + n) + ":00.000Z",
-                'Service Instance Count': Math.floor(Math.random() * (14000 - 4000) + 4000)
+        var initialH = 2;
+        var dataSet = [[], []];
+        var k = Math.random() * (180 - 60) + 60;
+        for (var i = 0; i < count; i++) {
+            dataSet[0][i] = {
+                time: "2020-09-01T0" + this.getHours(initialH, i) + ":" + this.getMinutes(initialM, i) + ":00.000Z",
+                'Service Instance Count': Math.abs(Math.sin(Math.PI * 2 / k * i) * 1500) // Math.floor(Math.random() * (14000 - 4000) + 4000)
             };
-            data[1][n] = {
-                time: "2020-09-01T02:" + ((initialM + n).toString().length === 1 ? '0' + (initialM + n) : initialM + n) + ":00.000Z",
-                'CPU Usage Millicores': Math.floor(Math.random() * (120 - 50) + 50)
-            };
-        }
-        for (var n = 0; n < count; n++) {
-            data[0][n + 60] = {
-                time: "2020-09-01T03:" + ((initialM + n).toString().length === 1 ? '0' + (initialM + n) : initialM + n) + ":00.000Z",
-                'Service Instance Count': Math.floor(Math.random() * (14000 - 4000) + 4000)
-            };
-            data[1][n + 60] = {
-                time: "2020-09-01T03:" + ((initialM + n).toString().length === 1 ? '0' + (initialM + n) : initialM + n) + ":00.000Z",
-                'CPU Usage Millicores': Math.floor(Math.random() * (120 - 50) + 50)
+            dataSet[1][i] = {
+                time: "2020-09-01T0" + this.getHours(initialH, i) + ":" + this.getMinutes(initialM, i) + ":00.000Z",
+                'CPU Usage Millicores': Math.abs(Math.sin(Math.PI * 2 / k * 2 * i) * 100)
             };
         }
-        console.log(data);
-        return data;
+        return dataSet;
+    };
+    ApiServiceService.prototype.getMinutes = function (minutes, i) {
+        if (i === 60) {
+            i = 0;
+        }
+        if (i > 60) {
+            i = i - 60;
+        }
+        return (minutes + i).toString().length === 1 ? '0' + (minutes + i) : minutes + i;
+    };
+    ApiServiceService.prototype.getHours = function (h, n) {
+        return n < 60 ? h : h + 1;
     };
     ApiServiceService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
             providedIn: 'root'
-        }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
+        })
     ], ApiServiceService);
     return ApiServiceService;
 }());
@@ -1023,6 +1024,7 @@ var AppComponent = /** @class */ (function (_super) {
         var _this = this;
         this.service.getChartsData(true).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["map"])(function (data) { return _this.dataAdaptation.getPreparedData(data); })).subscribe(function (data) {
             chart.series.forEach(function (seriesItem, index) {
+                // @ts-ignore
                 seriesItem.setData(data[index], true);
             });
         });
