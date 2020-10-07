@@ -22,7 +22,7 @@ before_script:
   - npm install -g @angular/cli
 
 script:
-  - npm run build.prod
+  - npm run build
 
 before_deploy:
   - npm run ghp.fix.paths
