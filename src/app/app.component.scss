@@ -1,10 +1,30 @@
 .container {
-  background-color: rgb(246, 246, 246);
+  margin: 10% auto;
 
   .demo-chart {
     min-width: 800px;
     width: 1200px;
     height: 300px;
     margin: 0 auto
+  }
+}
+
+::ng-deep {
+  .legend-checkbox {
+    vertical-align: middle;
+    cursor: pointer;
+  }
+
+  .refresh-data {
+    display: inline-block;
+    border: none;
+    background-color: transparent;
+    color: rgb(0, 113, 179);
+    font-weight: bold;
+    cursor: pointer;
+
+    &:hover {
+      opacity: .7;
+    }
   }
 }
