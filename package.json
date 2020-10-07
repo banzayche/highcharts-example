@@ -7,7 +7,8 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "ghp.fix.paths": "./node_modules/.bin/gulp fix.ghp.paths"
   },
   "private": true,
   "dependencies": {
@@ -20,6 +21,8 @@
     "@angular/platform-browser-dynamic": "~7.2.0",
     "@angular/router": "~7.2.0",
     "core-js": "^2.5.4",
+    "gulp": "^4.0.2",
+    "gulp-dom": "^1.0.0",
     "highcharts": "^8.2.0",
     "lodash": "^4.17.20",
     "moment": "^2.29.0",
