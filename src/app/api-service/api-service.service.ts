@@ -8,11 +8,6 @@ import * as moment from 'moment';
   providedIn: 'root'
 })
 export class ApiServiceService {
-
-  constructor() {
-  }
-
-  // TODO fix types
   getChartsData(isRandom: boolean = false): Observable<HighchartsDataModel[][]> {
     if (isRandom) {
       return of(this.generateData());
@@ -21,33 +16,39 @@ export class ApiServiceService {
     return of([mockedDataServiceInstanceCount, mockedDataCPUUsageMillicores]);
   }
 
-  private generateData() {
-    const count = 60;
+  private generateData(): HighchartsDataModel[][] {
+    const count = 120;
     const initialM = 0;
-    const data = [[], []];
+    const initialH = 2;
+    const dataSet: HighchartsDataModel[][] = [[], []];
 
-    for (let n = 0; n < count; n++) {
-      data[0][n] = {
-        time: `2020-09-01T02:${(initialM + n).toString().length === 1 ? '0' + (initialM + n) : initialM + n}:00.000Z`,
-        'Service Instance Count': Math.floor(Math.random() * (14000 - 4000) + 4000)
+    const k = Math.random() * (180 - 60) + 60;
+
+    for (let i = 0; i < count; i++) {
+      dataSet[0][i] = {
+        time: `2020-09-01T0${this.getHours(initialH, i)}:${this.getMinutes(initialM, i)}:00.000Z`,
+        'Service Instance Count': Math.abs(Math.sin(Math.PI * 2 / k * i) * 1500) // Math.floor(Math.random() * (14000 - 4000) + 4000)
       };
-      data[1][n] = {
-        time: `2020-09-01T02:${(initialM + n).toString().length === 1 ? '0' + (initialM + n) : initialM + n}:00.000Z`,
-        'CPU Usage Millicores': Math.floor(Math.random() * (120 - 50) + 50)
+      dataSet[1][i] = {
+        time: `2020-09-01T0${this.getHours(initialH, i)}:${this.getMinutes(initialM, i)}:00.000Z`,
+        'CPU Usage Millicores': Math.abs(Math.sin(Math.PI * 2 / k * 2 * i) * 100)
       };
     }
 
-    for (let n = 0; n < count; n++) {
-      data[0][n + 60] = {
-        time: `2020-09-01T03:${(initialM + n).toString().length === 1 ? '0' + (initialM + n) : initialM + n}:00.000Z`,
-        'Service Instance Count': Math.floor(Math.random() * (14000 - 4000) + 4000)
-      };
-      data[1][n + 60] = {
-        time: `2020-09-01T03:${(initialM + n).toString().length === 1 ? '0' + (initialM + n) : initialM + n}:00.000Z`,
-        'CPU Usage Millicores': Math.floor(Math.random() * (120 - 50) + 50)
-      };
+    return dataSet;
+  }
+
+  private getMinutes(minutes: number, i: number): string | number {
+    if (i === 60) {
+      i = 0;
     }
-    console.log(data);
-    return data;
+    if (i > 60) {
+      i = i - 60;
+    }
+    return (minutes + i).toString().length === 1 ? '0' + (minutes + i) : minutes + i;
+  }
+
+  private getHours(h, n): number {
+    return n < 60 ? h : h + 1;
   }
 }

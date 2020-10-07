@@ -7,6 +7,7 @@ import {map, takeUntil} from 'rxjs/operators';
 import {GraphDataItem} from './utilities/models';
 import {fromEvent} from 'rxjs';
 import {BaseUnsubscribe} from './utilities/base-unsubscribe';
+import {HTMLDOMElement} from 'highcharts';
 
 @Component({
   selector: 'app-root',
@@ -29,7 +30,7 @@ export class AppComponent extends BaseUnsubscribe implements OnInit {
     });
   }
 
-  barChartPopulation(data: GraphDataItem[][]): void {
+  private barChartPopulation(data: GraphDataItem[][]): void {
     HighCharts.chart('demo-chart', {
       chart: {
         zoomType: 'xy',
@@ -189,8 +190,8 @@ export class AppComponent extends BaseUnsubscribe implements OnInit {
     } as any);
   }
 
-  private onLoadChart(e) {
-    const chart = e.target;
+  private onLoadChart(e): void {
+    const chart: HighCharts.Chart = e.target;
     const chartDom = this.elementRef.nativeElement.querySelector('#demo-chart');
     this.updateLegendCheckboxesState(chart);
     fromEvent(chartDom, 'click').pipe(
@@ -204,13 +205,13 @@ export class AppComponent extends BaseUnsubscribe implements OnInit {
     });
   }
 
-  updateLegendCheckboxesState(chart) {
+  private updateLegendCheckboxesState(chart: HighCharts.Chart): void {
     this.elementRef.nativeElement.querySelector('[data-series="Rainfall"]').checked = chart.series[0].visible;
     this.elementRef.nativeElement.querySelector('[data-series="Temperature"]').checked = chart.series[1].visible;
   }
 
-  toggleSeries(chart, clickEv) {
-    const seriesIndex = clickEv.target.getAttribute('data-series') === 'Rainfall' ? 0 : 1;
+  private toggleSeries(chart: HighCharts.Chart, clickEv: Event): void {
+    const seriesIndex = (clickEv.target as HTMLDOMElement).getAttribute('data-series') === 'Rainfall' ? 0 : 1;
     if (chart.series[seriesIndex].visible) {
       chart.series[seriesIndex].hide();
     } else {
@@ -218,12 +219,12 @@ export class AppComponent extends BaseUnsubscribe implements OnInit {
     }
   }
 
-  refresh(chart) {
+  private refresh(chart: HighCharts.Chart): void {
     this.service.getChartsData(true).pipe(
       map(data => this.dataAdaptation.getPreparedData(data))
     ).subscribe(data => {
-
       chart.series.forEach((seriesItem, index) => {
+        // @ts-ignore
         seriesItem.setData(data[index], true);
       });
     });
