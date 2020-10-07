@@ -130,6 +130,9 @@ export class AppComponent implements OnInit {
         },
         lineColor: 'rgb(214,214,214)',
         lineWidth: 1,
+        tickInterval: 10,
+        min: 0,
+        tickPixelInterval: 20
       }, { // Secondary yAxis
         gridLineColor: 'rgb(250,250,250)',
         title: {
@@ -149,7 +152,10 @@ export class AppComponent implements OnInit {
             color: 'rgb(0,0,0)'
           }
         },
-        opposite: true
+        opposite: true,
+        tickInterval: 200,
+        min: 0,
+        tickPixelInterval: 20
       }],
       legend: {
         x: 450,
