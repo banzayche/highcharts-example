@@ -731,11 +731,11 @@ var ApiServiceService = /** @class */ (function () {
         for (var i = 0; i < count; i++) {
             dataSet[0][i] = {
                 time: "2020-09-01T0" + this.getHours(initialH, i) + ":" + this.getMinutes(initialM, i) + ":00.000Z",
-                'Service Instance Count': Math.abs(Math.sin(Math.PI * 2 / k * i) * 1500) // Math.floor(Math.random() * (14000 - 4000) + 4000)
+                'Service Instance Count': Math.abs(Math.sin(Math.PI * 2 / k * i) * 100) // Math.floor(Math.random() * (14000 - 4000) + 4000)
             };
             dataSet[1][i] = {
                 time: "2020-09-01T0" + this.getHours(initialH, i) + ":" + this.getMinutes(initialM, i) + ":00.000Z",
-                'CPU Usage Millicores': Math.abs(Math.sin(Math.PI * 2 / k * 2 * i) * 100)
+                'CPU Usage Millicores': Math.abs(Math.sin(Math.PI * 2 / k * 2 * i) * 1500)
             };
         }
         return dataSet;
@@ -936,7 +936,6 @@ var AppComponent = /** @class */ (function (_super) {
                     },
                     lineColor: 'rgb(214,214,214)',
                     lineWidth: 1,
-                    tickInterval: 10,
                     min: 0,
                     tickPixelInterval: 20
                 }, {
@@ -959,7 +958,6 @@ var AppComponent = /** @class */ (function (_super) {
                         }
                     },
                     opposite: true,
-                    tickInterval: 200,
                     min: 0,
                     tickPixelInterval: 20
                 }],
@@ -980,15 +978,16 @@ var AppComponent = /** @class */ (function (_super) {
             series: [{
                     name: 'Instance Count',
                     type: 'column',
-                    yAxis: 1,
+                    yAxis: 0,
                     color: 'rgb(126,203,235)',
-                    data: data[1]
+                    data: data[0]
                 },
                 {
                     name: 'CPU Utilization',
                     type: 'spline',
+                    yAxis: 1,
                     color: 'rgb(0,83,157)',
-                    data: data[0]
+                    data: data[1]
                 }
             ]
         });
