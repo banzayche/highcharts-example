@@ -160,7 +160,7 @@ export class AppComponent extends BaseUnsubscribe implements OnInit {
         tickPixelInterval: 20
       }],
       legend: {
-        x: 450,
+        x: 420,
         verticalAlign: 'top',
         y: -10,
         floating: true,
@@ -174,14 +174,14 @@ export class AppComponent extends BaseUnsubscribe implements OnInit {
         }
       },
       series: [{
-        name: 'Rainfall',
+        name: 'Instance Count',
         type: 'column',
         yAxis: 1,
         color: 'rgb(126,203,235)',
         data: data[1]
       },
         {
-          name: 'Temperature',
+          name: 'CPU Utilization',
           type: 'spline',
           color: 'rgb(0,83,157)',
           data: data[0]
@@ -206,12 +206,12 @@ export class AppComponent extends BaseUnsubscribe implements OnInit {
   }
 
   private updateLegendCheckboxesState(chart: HighCharts.Chart): void {
-    this.elementRef.nativeElement.querySelector('[data-series="Rainfall"]').checked = chart.series[0].visible;
-    this.elementRef.nativeElement.querySelector('[data-series="Temperature"]').checked = chart.series[1].visible;
+    this.elementRef.nativeElement.querySelector('[data-series="Instance Count"]').checked = chart.series[0].visible;
+    this.elementRef.nativeElement.querySelector('[data-series="CPU Utilization"]').checked = chart.series[1].visible;
   }
 
   private toggleSeries(chart: HighCharts.Chart, clickEv: Event): void {
-    const seriesIndex = (clickEv.target as HTMLDOMElement).getAttribute('data-series') === 'Rainfall' ? 0 : 1;
+    const seriesIndex = (clickEv.target as HTMLDOMElement).getAttribute('data-series') === 'Instance Count' ? 0 : 1;
     if (chart.series[seriesIndex].visible) {
       chart.series[seriesIndex].hide();
     } else {

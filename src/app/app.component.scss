@@ -35,7 +35,7 @@
       height: 100%;
       border-radius: 2px;
       position: absolute;
-      top: 0;
+      top: -10%;
     }
 
     &:not(:checked) {
@@ -53,7 +53,7 @@
         height: 25%;
         border-radius: 2px;
         position: absolute;
-        top: 30%;
+        top: 20%;
         left: 35%;
         border-left: 2px solid white;
         border-bottom: 2px solid white;
@@ -62,7 +62,7 @@
       }
     }
 
-    &[data-series="Rainfall"] {
+    &[data-series="Instance Count"] {
       &:checked {
         &:after {
           background-color: rgb(97, 185, 223);
@@ -71,7 +71,7 @@
       }
     }
 
-    &[data-series="Temperature"] {
+    &[data-series="CPU Utilization"] {
       &:checked {
         &:after {
           background-color: rgb(36, 90, 156);
