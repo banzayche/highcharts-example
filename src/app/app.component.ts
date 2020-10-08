@@ -132,7 +132,6 @@ export class AppComponent extends BaseUnsubscribe implements OnInit {
         },
         lineColor: 'rgb(214,214,214)',
         lineWidth: 1,
-        tickInterval: 10,
         min: 0,
         tickPixelInterval: 20
       }, { // Secondary yAxis
@@ -155,7 +154,6 @@ export class AppComponent extends BaseUnsubscribe implements OnInit {
           }
         },
         opposite: true,
-        tickInterval: 200,
         min: 0,
         tickPixelInterval: 20
       }],
@@ -176,15 +174,16 @@ export class AppComponent extends BaseUnsubscribe implements OnInit {
       series: [{
         name: 'Instance Count',
         type: 'column',
-        yAxis: 1,
+        yAxis: 0,
         color: 'rgb(126,203,235)',
-        data: data[1]
+        data: data[0]
       },
         {
           name: 'CPU Utilization',
           type: 'spline',
+          yAxis: 1,
           color: 'rgb(0,83,157)',
-          data: data[0]
+          data: data[1]
         }
       ]
     } as any);
