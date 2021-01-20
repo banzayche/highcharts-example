@@ -2,8 +2,8 @@ pipeline {
   agent {
     docker {
       image 'node:latest'
+      image 'justinribeiro/chrome-headless:latest'
     }
-    docker { image 'justinribeiro/chrome-headless:latest' }
   }
 
   stages {
