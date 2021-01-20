@@ -46,7 +46,7 @@ node {
     //   script: '''
     //     wget https://raw.githubusercontent.com/jfrazelle/dotfiles/master/etc/docker/seccomp/chrome.json -O $WORKSPACE/chrome.json
     //   '''
-    }
+    // }
 
     docker.image('ismail0352/chrome-node').inside('--name chrome-node --security-opt seccomp=$WORKSPACE/chrome.json') {
       stage('Test') {
