@@ -80,6 +80,10 @@
 //   }
 
 pipeline {
+  agent {
+    docker { image 'node:14.15.4-buster' }
+  }
+
   environment {
     HOME = "${WORKSPACE}"
   }
@@ -109,4 +113,5 @@ pipeline {
     }
   }
 }
+
 
