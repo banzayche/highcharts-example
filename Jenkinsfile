@@ -22,6 +22,7 @@ node {
             'Running npm install',
             script: '''
               node --version
+              cd test2_master
               npm install
             '''
           }
@@ -30,6 +31,7 @@ node {
             sh label:
             'Running npm run lint',
             script: '''
+              cd test2_master
               npm run lint
             '''
           }
