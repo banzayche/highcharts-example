@@ -2,7 +2,6 @@ pipeline {
   agent {
     docker {
       image 'node:latest'
-      'docker run -d -p 9222:9222 justinribeiro/chrome-headless'
     }
   }
 
@@ -11,9 +10,14 @@ pipeline {
       steps { sh 'npm install' }
     }
 
-    stage('Install Headless Chrome') {
-      steps {sh 'npm install --global chrome-headless-launcher'}
-    }
+    stage('BuildInside') {
+         docker.image('justinribeiro/chrome-headless').withRun('-d -p 9222:9222') {c ->
+            // docker.image('ubuntu1804').inside{
+            //    /*  Do something here inside container  */
+            //    sh "ls"
+            // }
+        }
+  }
 
     stage('Test') {
       parallel {
