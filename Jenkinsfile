@@ -32,24 +32,4 @@ node ('My Node') {
         }
     }
 
-//     stage('Test') {
-//       parallel {
-//         stage('Static code analysis') {
-//             steps { sh 'npm run-script lint' }
-//         }
-//
-//         stage('TypeScript Linting') {
-//             steps { sh 'npm run-script tslint' }
-//         }
-//
-//         stage('Unit Tests') {
-//             steps { sh 'npm run-script test:ci' }
-//         }
-//       }
-//     }
-
-//     stage('Build') {
-//       steps { sh 'npm run-script build' }
-//     }
-  }
 }
