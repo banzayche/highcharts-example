@@ -40,4 +40,45 @@ node {
         }
     }
 
+    // stage('Get test dependency') {
+    //   sh label:
+    //     'Downloading chrome.json',
+    //   script: '''
+    //     wget https://raw.githubusercontent.com/jfrazelle/dotfiles/master/etc/docker/seccomp/chrome.json -O $WORKSPACE/chrome.json
+    //   '''
+    }
+
+    docker.image('ismail0352/chrome-node').inside('--name chrome-node --security-opt seccomp=$WORKSPACE/chrome.json') {
+      stage('Test') {
+        sh label:
+          'Running npm run test',
+        script: '''
+          node --version
+          cd hello-world-node
+          npm run test
+        '''
+      }
+
+      // stage('e2e') {
+      //   sh label:
+      //     'Running npm run e2e',
+      //   script: '''
+      //     cd hello-world-node
+      //     npm run e2e
+      //   '''
+      // }
+    }
+    stage ('Build') {
+      docker.image('node:10').inside {
+        sh label:
+          'Running npm run build',
+        script: '''
+          node --version
+          cd hello-world-node
+          npm run build
+        '''
+      }
+    }
+  }
+
 }
