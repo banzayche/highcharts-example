@@ -12,8 +12,8 @@ pipeline {
 
     stage('Install and run headless chrome') {
       steps {
-        sh 'apt install -y chromium-browser'
-        sh 'google-chrome --headless'
+        sh 'root:sudo apt install -y chromium-browser'
+        sh 'root:sudo google-chrome --headless'
       }
     }
 
