@@ -2,7 +2,6 @@ pipeline {
   agent {
     docker {
       image 'node:latest'
-      image 'justinribeiro/chrome-headless:latest'
     }
   }
 
@@ -11,6 +10,10 @@ pipeline {
       steps { sh 'npm install' }
     }
 
+    stage('Install and run headless chrome') {
+      steps { sh 'apt install -y chromium-browser' }
+      steps { sh 'google-chrome --headless' }
+    }
 
     // stage('BuildInside') {
     //   docker.image('justinribeiro/chrome-headless').withRun('-d -p 9222:9222') {c ->

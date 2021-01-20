@@ -20,6 +20,7 @@
     "@angular/platform-browser": "~7.2.0",
     "@angular/platform-browser-dynamic": "~7.2.0",
     "@angular/router": "~7.2.0",
+    "chrome-launcher": "^0.13.4",
     "core-js": "^2.5.4",
     "gulp": "^4.0.2",
     "gulp-dom": "^1.0.0",
