@@ -2,6 +2,7 @@ pipeline {
   agent {
     docker {
       image 'node:latest'
+      'docker run -d -p 9222:9222 justinribeiro/chrome-headless'
     }
   }
 
