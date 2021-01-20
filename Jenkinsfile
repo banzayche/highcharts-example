@@ -4,10 +4,11 @@ pipeline {
   }
   stages {
     stage('Clean Workspace'){
-      cleanWs()
+      steps { cleanWs() }
     }
 
     stage("Main build") {
+      steps {
         docker.image('node:14.15.1').pull()
         docker.image('ismail0352/chrome-node').pull()
 
@@ -30,6 +31,7 @@ pipeline {
             '''
           }
         }
+      }
     }
 
 //     stage('Test') {
