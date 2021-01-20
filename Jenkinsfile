@@ -1,10 +1,12 @@
-node (label: 'build && linux') {
-  environment {
-    HOME = "${WORKSPACE}"
-  }
+node {
+    agent none
 
     stage('Clean Workspace'){
       cleanWs()
+    }
+
+    environment {
+      HOME = "${WORKSPACE}"
     }
 
     stage("Main build") {
