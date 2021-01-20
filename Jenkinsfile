@@ -2,13 +2,16 @@ pipeline {
   agent {
     docker {
       image 'node:latest'
-      image 'chromedp/headless-shell'
     }
   }
 
   stages {
     stage('Install') {
       steps { sh 'npm install' }
+    }
+
+    stage('Install Headless Chrome') {
+      steps {sh 'npm install --global chrome-headless-launcher'}
     }
 
     stage('Test') {
