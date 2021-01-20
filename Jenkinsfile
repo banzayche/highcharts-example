@@ -10,8 +10,8 @@ pipeline {
 
     stage("Main build") {
       steps {
-        @docker.image('node:14.15.1').pull()
-        @docker.image('ismail0352/chrome-node').pull()
+        @docker.image('node:14.15.1')
+        @docker.image('ismail0352/chrome-node')
 
         // Permorming Install and Lint
         @docker.image('node:14.15.1').inside {
