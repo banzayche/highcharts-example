@@ -3,19 +3,12 @@ pipeline {
     docker {
       image 'node:latest'
     }
+    docker { image 'justinribeiro/chrome-headless:latest' }
   }
 
   stages {
     stage('Install') {
       steps { sh 'npm install' }
-    }
-
-    stage('chromium') {
-      steps {
-        sh 'apt install snapd'
-        sh 'snap install chromium'
-        sh 'snap run chromium'
-      }
     }
 
 
