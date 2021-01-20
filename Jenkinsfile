@@ -1,12 +1,10 @@
-node {
-    agent none
+node ('My Node') {
+  environment {
+    HOME = "${WORKSPACE}"
+  }
 
     stage('Clean Workspace'){
       cleanWs()
-    }
-
-    environment {
-      HOME = "${WORKSPACE}"
     }
 
     stage("Main build") {
@@ -53,5 +51,5 @@ node {
 //     stage('Build') {
 //       steps { sh 'npm run-script build' }
 //     }
-
+  }
 }
