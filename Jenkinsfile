@@ -12,10 +12,10 @@ pipeline {
 
     stage('BuildInside') {
          docker.image('justinribeiro/chrome-headless').withRun('-d -p 9222:9222') {c ->
-            // docker.image('ubuntu1804').inside{
-            //    /*  Do something here inside container  */
-            //    sh "ls"
-            // }
+            docker.image('justinribeiro/chrome-headless').inside{
+               /*  Do something here inside container  */
+               sh "ls"
+            }
         }
   }
 
