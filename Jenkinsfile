@@ -22,19 +22,19 @@ node {
             'Running npm install',
             script: '''
               node --version
-              cd test2_master
+              ls
               npm install
             '''
           }
 
-          stage('Lint') {
-            sh label:
-            'Running npm run lint',
-            script: '''
-              cd test2_master
-              npm run lint
-            '''
-          }
+          // stage('Lint') {
+          //   sh label:
+          //   'Running npm run lint',
+          //   script: '''
+          //     cd test2_master
+          //     npm run lint
+          //   '''
+          // }
         }
     }
 
