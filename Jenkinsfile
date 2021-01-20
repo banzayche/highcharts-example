@@ -8,8 +8,12 @@ node {
     }
 
     stage("Main build") {
-        docker.image('node:14.15.1').pull()
+        docker.image('node:10').pull()
         docker.image('ismail0352/chrome-node').pull()
+
+        stage('Checkout SCM') {
+          checkout([$class: 'GitSCM', branches: [[name: 'master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/ismail0352/Packer-Terraform-Jenkins.git']]])
+        }
 
         // Permorming Install and Lint
         docker.image('node:14.15.1').inside {
