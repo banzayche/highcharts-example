@@ -5,7 +5,7 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
-    "test": "ng test --no-watch --no-progress",
+    "test": "ng test --no-watch --no-progress --browsers ChromeHeadless",
     "lint": "ng lint",
     "e2e": "ng e2e",
     "ghp.fix.paths": "./node_modules/.bin/gulp fix.ghp.paths"
@@ -25,6 +25,7 @@
     "gulp": "^4.0.2",
     "gulp-dom": "^1.0.0",
     "highcharts": "^8.2.0",
+    "karma-script-launcher": "^1.0.0",
     "lodash": "^4.17.20",
     "moment": "^2.29.0",
     "rxjs": "~6.3.3",

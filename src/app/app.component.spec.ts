@@ -22,6 +22,10 @@ describe('AppComponent', () => {
     expect(app.title).toEqual('test-work-highcharts');
   });
 
+  it('CHECK', () => {
+    expect(1).toBe(10);
+  })
+
   it('should render title in a h1 tag', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
