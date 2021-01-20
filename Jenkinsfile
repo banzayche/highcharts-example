@@ -18,6 +18,7 @@ pipeline {
                sh "ls"
             }
         }
+    }
 
     stage('Test') {
       parallel {
