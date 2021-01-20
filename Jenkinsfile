@@ -2,15 +2,10 @@ pipeline {
   agent {
     docker {
       image 'node:latest'
+      image 'justinribeiro/chrome-headless'
+        args '-d -p 9222:9222 --security-opt seccomp=$HOME/chrome.json'
     }
   }
-
-  agent {
-      docker {
-        image 'justinribeiro/chrome-headless'
-        args '-d -p 9222:9222 --security-opt seccomp=$HOME/chrome.json'
-      }
-    }
 
   stages {
     stage('Install') {
