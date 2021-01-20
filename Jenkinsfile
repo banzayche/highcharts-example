@@ -1,10 +1,10 @@
-node ('My Node') {
-  environment {
-    HOME = "${WORKSPACE}"
-  }
-
+node {
     stage('Clean Workspace'){
       cleanWs()
+    }
+
+    environment {
+      HOME = "${WORKSPACE}"
     }
 
     stage("Main build") {
