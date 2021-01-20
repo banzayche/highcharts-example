@@ -3,16 +3,14 @@ pipeline {
     docker {
       image 'node:latest'
     }
-  }
 
-  stages {
-    agent {
-      docker {
+    docker {
         image 'justinribeiro/chrome-headless'
         args '-d -p 9222:9222 --security-opt seccomp=$HOME/chrome.json'
       }
-    }
+  }
 
+  stages {
     stage('Install') {
       steps { sh 'npm install' }
     }
