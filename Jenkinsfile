@@ -1,4 +1,5 @@
 pipeline {
+  agent none
   environment {
     HOME = "${WORKSPACE}"
   }
@@ -9,11 +10,11 @@ pipeline {
 
     stage("Main build") {
       steps {
-        docker.image('node:14.15.1').pull()
-        docker.image('ismail0352/chrome-node').pull()
+        @docker.image('node:14.15.1').pull()
+        @docker.image('ismail0352/chrome-node').pull()
 
         // Permorming Install and Lint
-        docker.image('node:14.15.1').inside {
+        @docker.image('node:14.15.1').inside {
           stage('Install') {
             sh label:
             'Running npm install',
