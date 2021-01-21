@@ -92,24 +92,29 @@ pipeline {
       steps { sh 'npm install' }
     }
 
-    stage('Test') {
-      parallel {
-        stage('Static code analysis') {
-            steps { sh 'npm run-script lint' }
-        }
-//      This part is postponed
-//         stage('Unit Tests') {
-//             steps { sh 'npm run-script test:ci' }
+//     stage('Test') {
+//       parallel {
+//         stage('Static code analysis') {
+//             steps { sh 'npm run-script lint' }
 //         }
-      }
-    }
+// //      This part is postponed
+// //         stage('Unit Tests') {
+// //             steps { sh 'npm run-script test:ci' }
+// //         }
+//       }
+//     }
 
-    stage('Build') {
-      steps { sh 'npm run-script build' }
-    }
+    // stage('Build') {
+    //   steps { sh 'npm run-script build' }
+    // }
 
     stage('deploy') {
-      steps { sh 'npm run-script build' }
+      steps {
+        sh 'npm run-script build'
+        zip zipFile: 'plat-ui.zip', archive: false, dir: './dist/plat-ui'
+        archiveArtifacts artifacts: 'plat-ui.zip', fingerprint: true
+        sh 'ls'
+      }
     }
   }
 }
